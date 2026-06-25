@@ -1,0 +1,115 @@
+/* css/estilos_login.css */
+
+/* 1. Configuración general de la página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2c3e50 0%, #0f2027 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* 2. Caja contenedora del Formulario */
+.login-card {
+    background: #ffffff;
+    color: #333333;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.login-card h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #1a252f;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* 3. Estilos de las cajas de entrada y etiquetas */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #566573;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d5dbdb;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2c3e50;
+}
+
+/* 4. El botón de ingreso */
+.btn-ingresar {
+    width: 100%;
+    padding: 12px;
+    background-color: #e67e22; /* Color naranja elegante para combinar con la cocina */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-ingresar:hover {
+    background-color: #d35400;
+}
+
+/* 5. Sección inferior de Autores del Trabajo Académico */
+.autores-box {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 25px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.autores-box h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #bdc3c7;
+}
+
+.autores-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: #ecf0f1;
+    line-height: 1.6;
+}
