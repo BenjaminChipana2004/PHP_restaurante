@@ -72,9 +72,6 @@
                     $objForm -> formRealizarCobroShow();
                 break;
 
-                // ==========================================================
-                //  ¡MÓDULO ACTIVADO AQUÍ! (LÍNEAS MODIFICADAS / NUEVAS)
-                // ==========================================================
                 case 'registrar insumos':
                     include_once('../moduloInsumos/ControllerRegistrarInsumo.php');
                     $objControl = new ControllerRegistrarInsumo();
@@ -84,7 +81,16 @@
                     $objForm = new formRegistrarInsumo();
                     $objForm->formRegistrarInsumoShow($listaInsumos, false);
                 break;
-                // ==========================================================
+
+                // =========================================================================
+                // LÍNEAS NUEVAS: CASO DE USO AGREGAR USUARIO
+                // =========================================================================
+                case 'crear nuevo usuario':
+                    include_once('../moduloSeguridad/ControllerAgregarUsuario.php');
+                    $objControl = new ControllerAgregarUsuario();
+                    $objControl->mostrarFormulario();
+                break;
+                // =========================================================================
 
                 default:
                     /*
