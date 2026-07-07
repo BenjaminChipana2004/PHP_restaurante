@@ -10,8 +10,25 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+
+    // 1. Capturamos el texto del botón presionado en el panel dinámico
     $boton = $_POST['btnCasoUso'];
+
+    // =========================================================================
+    // BLOQUE DE INTERCEPCIÓN Y TRADUCCIÓN COMERCIAL -> TÉCNICO
+    // =========================================================================
+    if ($boton === 'efectuar cobro') {
+        $boton = 'realizar cobro'; // Cambiamos el valor para que encaje con tu switch y tu Rational Rose
+        
+        // Le damos el pase de seguridad agregando 'realizar cobro' a la sesión si no existía
+        if (!in_array('realizar cobro', $_SESSION['listaPrivilegios']) && in_array('efectuar cobro', $_SESSION['listaPrivilegios'])) {
+            $_SESSION['listaPrivilegios'][] = 'realizar cobro';
+        }
+    }
+    // =========================================================================
+
     $listaPrivilegios = $_SESSION['listaPrivilegios'];
+
     if(!validarBoton($boton))
     {
         include_once('../shared/mensajeSistemaBox.php');
@@ -30,7 +47,7 @@
         {
            switch($boton)
            {
-            /*
+                /*
                 case 'actualizar platos':
                     include_once('../moduloAdministracion/controllerActualizarPlatos.php');
                     $objControl = new controllerActualizarPlatos();
@@ -53,12 +70,23 @@
                     $objForm = new formRegistrarDespacho();
                     $objForm -> formRegistrarDespachoShow($platosCocina);
                 break;
-                /*
-                case 'efectuar cobro':
-                    include_once('../moduloVentas/controllerEfectuarCobro.php');
-                    $objControl = new controllerEfectuarCobro();
-                    $objControl -> efectuarCobro();
+
+                // ==========================================================
+                // CASO DE USO INTEGRADO Y ACTIVADO: REALIZAR COBRO
+                // ==========================================================
+                case 'realizar cobro':
+                    // 1. Incluimos tu controlador del caso de uso
+                    include_once('../moduloCobros/controllerRealizarCobro.php');
+                    
+                    // 2. Incluimos tu formulario unificado
+                    include_once('../moduloCobros/formRealizarCobro.php');
+                    
+                    // 3. Renderizamos la interfaz inicial (Buscar Mesa)
+                    $objForm = new formRealizarCobro();
+                    $objForm -> formRealizarCobroShow();
                 break;
+
+                /*
                 case 'registrar reclamo':
                     include_once('../moduloVentas/controllerRegistrarReclamo.php');
                     $objControl = new controllerRegistrarReclamo();
@@ -82,3 +110,4 @@
            }
         }
     }
+?>
