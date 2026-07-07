@@ -7,7 +7,8 @@
         {
             $this->cabeceraShow("Crear Nuevo Usuario");
             ?>
-            <form method="POST" action="../moduloAgregar/getAgregarUsuario.php">
+            <!-- Ajustado el action para que procese en el mismo directorio del módulo -->
+            <form method="POST" action="getAgregarUsuario.php">
                 <table align="center" border="0" style="margin-top: 30px; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
                     <tr>
                         <td colspan="2" align="center" style="font-weight: bold; font-size: 1.2em; padding-bottom: 15px;">
@@ -23,12 +24,13 @@
                     <tr>
                         <td>Rol:</td>
                         <td>
+                            <!-- Mapeado con las llaves primarias numéricas de tu tabla DB_Rol -->
                             <select name="cboRol" required>
                                 <option value="">Seleccione un rol...</option>
-                                <option value="cocinero">Cocinero</option>
-                                <option value="cajero">Cajero</option>
-                                <option value="mesero">Mesero</option>
-                                <option value="Administrador">Administrador</option>
+                                <option value="1">Cocinero</option>
+                                <option value="3">Cajero</option>
+                                <option value="2">Mesero</option>
+                                <option value="4">Administrador</option>
                             </select>
                         </td>
                     </tr>
