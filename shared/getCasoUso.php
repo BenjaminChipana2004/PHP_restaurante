@@ -47,13 +47,6 @@
         {
            switch($boton)
            {
-                /*
-                case 'actualizar platos':
-                    include_once('../moduloAdministracion/controllerActualizarPlatos.php');
-                    $objControl = new controllerActualizarPlatos();
-                    $objControl -> actualizarPlatos();
-                break;
-                */
                 case 'registrar pedido':
                     include_once('../moduloPedidos/controllerRegistrarPedido.php');
                     $objControl = new controllerRegistrarPedido();
@@ -62,6 +55,7 @@
                     $objForm = new formRegistrarPedido();
                     $objForm -> formMesasDisponiblesShow($mesasDisponibles);
                 break;
+                
                 case 'registrar despacho':
                     include_once('../moduloVentas/controllerRegistrarDespacho.php');
                     $objControl = new controllerRegistrarDespacho();
@@ -71,39 +65,51 @@
                     $objForm -> formRegistrarDespachoShow($platosCocina);
                 break;
 
-                // ==========================================================
-                // CASO DE USO INTEGRADO Y ACTIVADO: REALIZAR COBRO
-                // ==========================================================
                 case 'realizar cobro':
-                    // 1. Incluimos tu controlador del caso de uso
                     include_once('../moduloCobros/controllerRealizarCobro.php');
-                    
-                    // 2. Incluimos tu formulario unificado
                     include_once('../moduloCobros/formRealizarCobro.php');
-                    
-                    // 3. Renderizamos la interfaz inicial (Buscar Mesa)
                     $objForm = new formRealizarCobro();
                     $objForm -> formRealizarCobroShow();
                 break;
 
-                /*
-                case 'registrar reclamo':
-                    include_once('../moduloVentas/controllerRegistrarReclamo.php');
-                    $objControl = new controllerRegistrarReclamo();
-                    $objControl -> registrarReclamo();
-                break;
                 case 'registrar insumos':
-                    include_once('../moduloAdministracion/controllerRegistrarInsumos.php');
-                    $objControl = new controllerRegistrarInsumos();
-                    $objControl -> registrarInsumos();
+                    include_once('../moduloRegistrar/controllerRegistrarInsumo.php');
+                    $objControl = new ControllerRegistrarInsumo();
+                    $listaInsumos = $objControl->obtenerStock();
+
+                    include_once('../moduloRegistrar/formRegistrarInsumo.php');
+                    $objForm = new formRegistrarInsumo();
+                    $objForm->formRegistrarInsumoShow($listaInsumos, false);
                 break;
+
+                // =========================================================================
+                // LÍNEAS NUEVAS: CASO DE USO AGREGAR USUARIO
+                // =========================================================================
                 case 'actualizar usuarios':
-                    include_once('../moduloSeguridad/controllerActualizarUsuarios.php');
-                    $objControl = new controllerActualizarUsuarios();
-                    $objControl -> actualizarUsuarios();
+                    include_once('../moduloAgregar/controllerAgregarUsuario.php');
+                    $objControl = new ControllerAgregarUsuario();
+                    $objControl->mostrarFormulario();
                 break;
-                */
+                // =========================================================================
+
                 default:
+                    /*
+                    case 'actualizar platos':
+                        include_once('../moduloAdministracion/controllerActualizarPlatos.php');
+                        $objControl = new controllerActualizarPlatos();
+                        $objControl -> actualizarPlatos();
+                    break;
+                    case 'registrar reclamo':
+                        include_once('../moduloVentas/controllerRegistrarReclamo.php');
+                        $objControl = new controllerRegistrarReclamo();
+                        $objControl -> registrarReclamo();
+                    break;
+                    case 'actualizar usuarios':
+                        include_once('../moduloSeguridad/controllerActualizarUsuarios.php');
+                        $objControl = new controllerActualizarUsuarios();
+                        $objControl -> actualizarUsuarios();
+                    break;
+                    */
                     include_once('../shared/mensajeSistemaBox.php');
                     $objMensaje = new mensajeSistemaBox();
                     $objMensaje -> mensajeSistemaBoxShow("ERROR: Caso de uso no encontrado","<a href='../index.php'>ingresar correctamente</a>");

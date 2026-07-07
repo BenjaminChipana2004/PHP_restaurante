@@ -37,5 +37,32 @@
             $this -> desconectarBD($conexion);
             return $idUsuario;
         }
+
+        // =========================================================================
+        // MÉTODOS AÑADIDOS: AGREGAR USUARIO CON SINTAXIS POSTGRESQL (LÍNEAS NUEVAS)
+        // =========================================================================
+        public function consultaDNI($dni)
+        {
+            $consulta = "SELECT dni FROM DB_Usuario WHERE dni = '$dni'";
+            $conexion = $this->conectarBD();
+            $respuesta = pg_query($conexion, $consulta);
+            if (!$respuesta) {
+                die("Error SQL: " . pg_last_error($conexion));
+            }
+            $numfilas = pg_num_rows($respuesta);
+            $this->desconectarBD($conexion);
+            return $numfilas;
+        }
+
+        public function crearNuevoUsuario($nombre, $apellido, $dni, $fecha_nacimiento, $correo, $contrasena, $rol)
+        {
+            $consulta = "INSERT INTO DB_Usuario (nombre, apellido, dni, fecha_nacimiento, email, password, rol) 
+                         VALUES ('$nombre', '$apellido', '$dni', '$fecha_nacimiento', '$correo', '$contrasena', '$rol')";
+            $conexion = $this->conectarBD();
+            $resultado = pg_query($conexion, $consulta);
+            $this->desconectarBD($conexion);
+            return $resultado;
+        }
+        // =========================================================================
     }
 ?>

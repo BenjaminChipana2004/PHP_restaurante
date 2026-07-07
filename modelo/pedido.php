@@ -20,11 +20,13 @@
         {
             $consultaCodigo =              "INSERT INTO db_pedido (codpedido, fecha, total, estado, observacion, db_mesa_id, db_usuario_id)
                                             VALUES (1111, CURRENT_DATE, 0, 'pendiente', '', $idMesa, $idUsuario);
-                                            SELECT db_pedido_id FROM db_pedido WHERE codpedido = 1111;";
+                                            ";
+            $pedirId = "SELECT db_pedido_id FROM db_pedido WHERE codpedido = 1111;";
             $consultaActualizarCodigo =    "UPDATE db_pedido SET codpedido = db_pedido_id + 5000 WHERE codpedido = 1111;";
             
             $conexion = $this->conectarBD();
-            $resultado = pg_query($conexion, $consultaCodigo);
+            pg_query($conexion, $consultaCodigo);
+            $resultado = pg_query($conexion, $pedirId);
             pg_query($conexion, $consultaActualizarCodigo);
             $this->desconectarBD($conexion);
             

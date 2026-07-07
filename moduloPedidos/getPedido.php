@@ -83,5 +83,6 @@
                     $objForm -> formCategoriasPlatosShow($categorias);
                 break;
             }
+            exit;
         }
     }

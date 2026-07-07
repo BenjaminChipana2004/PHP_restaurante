@@ -17,8 +17,8 @@
     }
     
     $boton = $_POST['boton'];
-    $idMesa = $_POST['idmesa'];
-    $nroMesa = $_POST['nromesa'];
+    $idMesa = $_POST['idMesa'];
+    $nroMesa = $_POST['nroMesa'];
     $idUsuario = $_SESSION['idUsuario'];
     $listaPrivilegios = $_SESSION['listaPrivilegios'];
     $privilegioNecesario = "registrar pedido";
@@ -60,5 +60,6 @@
                     $objForm -> formListaPedidosShow($nroMesa, $platosPedido);
                 break;
             }
+            exit;
         }
     }

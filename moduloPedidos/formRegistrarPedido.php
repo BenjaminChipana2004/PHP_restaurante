@@ -19,7 +19,7 @@
                         <input type="hidden" name="idMesa" value="<?php echo $mesa['idmesa'];?>">   
                         <input type="hidden" name="nroMesa" value="<?php echo $mesa['nromesa'];?>">
                         <button type="submit" name="boton" value="mesa" class="btn btn-mesa" 
-                        style="background-color: <?php echo $color_boton; ?>;">Mesa</button>
+                        style="background-color: <?php echo $color_boton; ?>;">Mesa <?php echo $mesa['nromesa'];?></button>
                     </form>
                 <?php
             }
@@ -135,6 +135,7 @@
                     <button type="submit" name="boton" value="volver" class="btn btn-mesa">Volver</button>
                 </form>
             <?php
+            $this -> piePaginaShow();
         }
         public function formPlatosDisponiblesShow($platosCategoria)
         {

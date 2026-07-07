@@ -59,5 +59,6 @@
                     $objForm -> formPlatosDisponiblesShow($platosCategoria);
                 break;
             }
+            exit;
         }
     }

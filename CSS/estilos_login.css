@@ -113,3 +113,11 @@ body {
     color: #ecf0f1;
     line-height: 1.6;
 }
+
+.titulo-estacion {
+    font-size: 2rem;          /* Hace la letra bastante más grande */
+    font-weight: bold;        /* Define que la letra sea gruesa (puedes usar valores numéricos como 800 o 900) */
+    text-transform: uppercase;/* Asegura que siempre esté en mayúsculas */
+    color: #111;              /* Un color oscuro fuerte para que resalte más */
+    margin-bottom: 8px;       /* Despeja un poco el espacio con el "Iniciar Sesión" */
+}
