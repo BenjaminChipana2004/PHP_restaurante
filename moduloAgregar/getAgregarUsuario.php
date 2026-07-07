@@ -19,7 +19,7 @@
     if (!validaBotonAgregar($boton)) {
         include_once('../shared/mensajeSistemaBox.php');
         $objMensaje = new mensajeSistemaBox();
-        $objMensaje->mensajeSistemaBoxShow("ERROR: Acceso no válido al formulario", "<a href='../index.php'>Regresar al inicio</a>");
+        $objMensaje->mensajeSistemaBoxShow("ERROR: Acceso no válido al formulario", "<a href='../moduloAgregar/indexAgregar.php'>Regresar al inicio</a>");
     } else {
         // Capturamos variables
         $nombre = trim($_POST['txtNombre']);
@@ -50,7 +50,7 @@
                 if ($existeDNI > 0) {
                     include_once('../shared/mensajeSistemaBox.php');
                     $objMensaje = new mensajeSistemaBox();
-                    $objMensaje->mensajeSistemaBoxShow("ERROR: El DNI/Código '$dni' ya se encuentra registrado", "<a href='javascript:history.back()'>Modificar DNI</a>");
+                    $objMensaje->mensajeSistemaBoxShow("ERROR: El DNI/Código '$dni' ya se encuentra registrado", "<a href='../moduloAgregar/indexAgregar.php'>Modificar DNI</a>");
                 } else {
                     // Si no existe, lo creamos
                     $objControl->crearNuevoUsuario($nombre, $apellido, $dni, $fecha, $correo, $contrasena, $rol);

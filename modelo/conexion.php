@@ -4,7 +4,7 @@ class conexion
     private $host = "localhost";
     private $port = "5432";
     private $dbname = "db_restaurante"; // <-- REEMPLAZA "db_restaurante" POR TU NOMBRE REAL DE BASE DE DATOS SI ES DISTINTO
-    private $user = "admin"; // <-- REEMPLAZA "postgres" POR TU USUARIO REAL DE PGADMIN SI ES DISTINTO
+    private $user = "postgres"; // <-- REEMPLAZA "postgres" POR TU USUARIO REAL DE PGADMIN SI ES DISTINTO
     private $password = "admin"; // <-- REEMPLAZA "postgres" POR TU CONTRASEÑA REAL DE PGADMIN SI ES DISTINTA
 
     protected function conectarBD()

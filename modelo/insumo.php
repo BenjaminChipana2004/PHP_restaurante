@@ -5,8 +5,14 @@ class insumo extends conexion
 {
     public function obtenerStock()
     {
-        // Se adapta al formato exacto de tu conexión PostgreSQL
-        $consulta = "SELECT id_insumo, nombre, cantidad, categoria FROM insumos";
+        // Unimos DB_Insumo con DB_Lote para poder mostrar el nombre del producto
+        $consulta = "SELECT i.DB_Insumo_ID as id_insumo, 
+                            i.codInsumo as codigo, 
+                            l.nombreProducto as nombre, 
+                            i.stock as cantidad 
+                     FROM DB_Insumo i
+                     INNER JOIN DB_Lote l ON i.DB_Lote_ID = l.DB_Lote_ID";
+                     
         $conexion = $this->conectarBD();
         $respuesta = pg_query($conexion, $consulta);
         
@@ -28,10 +34,11 @@ class insumo extends conexion
         }
     }
 
-    public function enviarInsumo($id, $nombre, $cantidad, $categoria)
+    // Adaptado a las columnas reales: codInsumo, stock, DB_Lote_ID
+    public function enviarInsumo($codInsumo, $stock, $loteId)
     {
-        $consulta = "INSERT INTO insumos (id_insumo, nombre, cantidad, categoria) 
-                     VALUES ('$id', '$nombre', '$cantidad', '$categoria')";
+        $consulta = "INSERT INTO DB_Insumo (codInsumo, stock, DB_Lote_ID) 
+                     VALUES ('$codInsumo', '$stock', '$loteId')";
         $conexion = $this->conectarBD();
         $resultado = pg_query($conexion, $consulta);
         $this->desconectarBD($conexion);
@@ -40,7 +47,8 @@ class insumo extends conexion
 
     public function actualizarStock($id, $cantidad)
     {
-        $consulta = "UPDATE insumos SET cantidad = '$cantidad' WHERE id_insumo = '$id'";
+        // Actualizamos según la llave primaria correcta
+        $consulta = "UPDATE DB_Insumo SET stock = '$cantidad' WHERE DB_Insumo_ID = '$id'";
         $conexion = $this->conectarBD();
         $resultado = pg_query($conexion, $consulta);
         $this->desconectarBD($conexion);

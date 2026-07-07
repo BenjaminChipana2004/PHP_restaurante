@@ -1,5 +1,6 @@
 <?php
-class ControllerRegistrarInsumo
+// CORRECCIÓN: c minúscula respetada en la clase
+class controllerRegistrarInsumo
 {
     public function obtenerStock()
     {
@@ -8,11 +9,11 @@ class ControllerRegistrarInsumo
         return $objInsumo->obtenerStock();
     }
 
-    public function enviarInsumo($id, $nombre, $cantidad, $categoria)
+    public function enviarInsumo($nombre, $cantidad, $categoria)
     {
         include_once('../modelo/insumo.php');
         $objInsumo = new insumo();
-        return $objInsumo->enviarInsumo($id, $nombre, $cantidad, $categoria);
+        return $objInsumo->enviarInsumo($nombre, $cantidad, $categoria);
     }
 
     public function actualizarStock($id, $cantidad)

@@ -1,8 +1,7 @@
 <?php
-function validarCasillas($id, $nombre, $cantidad, $categoria)
+function validarCasillas($cod, $stock, $lote)
 {
-    // Valida que los campos obligatorios cumplan con una longitud mínima
-    return (strlen($id) >= 2 && strlen($nombre) >= 3 && intval($cantidad) > 0 && strlen($categoria) >= 3);
+    return (!empty($cod) && is_numeric($stock) && is_numeric($lote));
 }
 
 function validarBotonRegistrar($boton)
@@ -10,10 +9,10 @@ function validarBotonRegistrar($boton)
     return isset($boton);
 }
 
-$id = trim($_POST['txtIdInsumo']);
-$nombre = trim($_POST['txtNombre']);
-$cantidad = trim($_POST['txtCantidad']);
-$categoria = trim($_POST['txtCategoria']);
+// Capturamos los datos que coinciden con DB_Insumo
+$codInsumo = trim($_POST['txtCodInsumo']);
+$stock = trim($_POST['txtStock']);
+$loteId = trim($_POST['txtLoteId']);
 $boton = $_POST['btnRegistrarInsumo'];
 
 if (!validarBotonRegistrar($boton)) {
@@ -21,25 +20,21 @@ if (!validarBotonRegistrar($boton)) {
     $objMensaje = new mensajeSistemaBox();
     $objMensaje->mensajeSistemaBoxShow("ERROR: Operación no permitida", "<a href='../moduloSeguridad/getUsuario.php'>Regresar al panel</a>");
 } else {
-    if (!validarCasillas($id, $nombre, $cantidad, $categoria)) {
+    if (!validarCasillas($codInsumo, $stock, $loteId)) {
         include_once('../shared/mensajeSistemaBox.php');
         $objMensaje = new mensajeSistemaBox();
-        $objMensaje->mensajeSistemaBoxShow("ERROR: Los datos del insumo son inválidos o están incompletos", "<a href='javascript:history.back()'>Volver a intentar</a>");
+        $objMensaje->mensajeSistemaBoxShow("ERROR: Los datos del insumo son inválidos", "<a href='javascript:history.back()'>Volver a intentar</a>");
     } else {
-        include_once('ControllerRegistrarInsumo.php');
-        $objControl = new ControllerRegistrarInsumo();
+        include_once('controllerRegistrarInsumo.php');
+        $objControl = new controllerRegistrarInsumo();
 
-        // Secuencia Estricta del Diagrama:
-        // 1. Enviar Insumo
-        $objControl->enviarInsumo($id, $nombre, $cantidad, $categoria);
+        // 1. Enviar Insumo a la base de datos (con su lote respectivo)
+        $objControl->enviarInsumo($codInsumo, $stock, $loteId);
         
-        // 2. Actualizar Stock
-        $objControl->actualizarStock($id, $cantidad);
-        
-        // 3. Obtener el stock refrescado
+        // 2. Obtener el stock refrescado
         $listaActualizada = $objControl->obtenerStock();
 
-        // 4. Mostrar de nuevo la interfaz inicial con la tabla actualizada
+        // 3. Mostrar de nuevo la interfaz inicial con la tabla actualizada
         include_once('formRegistrarInsumo.php');
         $objForm = new formRegistrarInsumo();
         $objForm->formRegistrarInsumoShow($listaActualizada, false);

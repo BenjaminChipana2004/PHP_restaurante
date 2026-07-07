@@ -8,7 +8,7 @@
             $this->cabeceraShow("Crear Nuevo Usuario");
             ?>
             <!-- Ajustado el action para que procese en el mismo directorio del módulo -->
-            <form method="POST" action="getAgregarUsuario.php">
+            <form method="POST" action="../moduloAgregar/getAgregarUsuario.php">
                 <table align="center" border="0" style="margin-top: 30px; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
                     <tr>
                         <td colspan="2" align="center" style="font-weight: bold; font-size: 1.2em; padding-bottom: 15px;">

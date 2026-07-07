@@ -25,9 +25,9 @@
             $objMensaje = new mensajeSistemaBox();
 
             if ($resultado) {
-                $objMensaje->mensajeSistemaBoxShow("Se Agrego con exito", "<a href='../index.php'>Volver al Panel</a>");
+                $objMensaje->mensajeSistemaBoxShow("Se Agrego con exito", "<a href='../moduloAgregar/indexAgregar.php'>Volver al Panel</a>");
             } else {
-                $objMensaje->mensajeSistemaBoxShow("ERROR: Ocurrió un problema en la Base de Datos", "<a href='javascript:history.back()'>Intentar de nuevo</a>");
+                $objMensaje->mensajeSistemaBoxShow("ERROR: Ocurrió un problema en la Base de Datos", "<a href='../moduloAgregar/indexAgregar.php'>Intentar de nuevo</a>");
             }
         }
     }

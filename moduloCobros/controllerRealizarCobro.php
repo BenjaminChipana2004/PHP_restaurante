@@ -1,26 +1,34 @@
 <?php
-class controllerRealizarCobro
-{
-    /**
-     * Operación 1: Invoca al modelo pedido para buscar los consumos de la mesa.
-     */
-    public function obtenerPedidoDetalle($NroMesa)
+    class ControllerAgregarUsuario
     {
-        include_once('../modelo/pedido.php');
-        $objModelo = new pedido();
-        $pedidoEncontrado = $objModelo->obtenerPedidoDetalle($NroMesa);
-        return $pedidoEncontrado;
-    }
+        public function mostrarFormulario()
+        {
+            include_once('formAgregarUsuario.php');
+            $objForm = new formAgregarUsuario();
+            $objForm->formCrearNuevoUsuario();
+        }
 
-    /**
-     * Operación 2: Invoca al modelo factura para registrar el pago y cerrar la cuenta.
-     */
-    public function actualizarEstadoFactura($idPedido, $totalCobro)
-    {
-        include_once('../modelo/factura.php');
-        $objModelo = new Factura();
-        $exito = $objModelo->actualizarEstadoFactura($idPedido, $totalCobro);
-        return $exito;
+        public function consultaDNI($dni)
+        {
+            include_once('../modelo/usuario.php');
+            $objUsuario = new usuario();
+            return $objUsuario->consultaDNI($dni);
+        }
+
+        public function crearNuevoUsuario($nombre, $apellido, $dni, $fecha, $correo, $contrasena, $rol)
+        {
+            include_once('../modelo/usuario.php');
+            $objUsuario = new usuario();
+            $resultado = $objUsuario->crearNuevoUsuario($nombre, $apellido, $dni, $fecha, $correo, $contrasena, $rol);
+            
+            include_once('../shared/mensajeSistemaBox.php');
+            $objMensaje = new mensajeSistemaBox();
+
+            if ($resultado) {
+                $objMensaje->mensajeSistemaBoxShow("Se Agrego con exito", "<a href='../index.php'>Volver al Panel</a>");
+            } else {
+                $objMensaje->mensajeSistemaBoxShow("ERROR: Ocurrió un problema en la Base de Datos", "<a href='javascript:history.back()'>Intentar de nuevo</a>");
+            }
+        }
     }
-}
 ?>

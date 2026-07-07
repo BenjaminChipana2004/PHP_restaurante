@@ -85,7 +85,7 @@
                 // =========================================================================
                 // LÍNEAS NUEVAS: CASO DE USO AGREGAR USUARIO
                 // =========================================================================
-                case 'actualizar usuarios':
+                case 'agregar usuario':
                     include_once('../moduloAgregar/controllerAgregarUsuario.php');
                     $objControl = new ControllerAgregarUsuario();
                     $objControl->mostrarFormulario();
