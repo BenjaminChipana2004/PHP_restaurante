@@ -6,6 +6,7 @@ class formAutenticarUsuario extends pantalla {
         $this->cabeceraShow("Iniciar Sesion");
         ?>
         <div class="login-card">
+            <h3 style="font-size: 28px; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px;">ESTACION 28</h3>
             <h2>Iniciar Sesión</h2>
             <p class="login-subtitle">Ingrese sus datos para acceder al sistema</p>
             

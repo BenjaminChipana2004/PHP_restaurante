@@ -3,7 +3,7 @@ class Conexion
 {
     private $host = "localhost";
     private $port = "5432";
-    private $dbname = "BD_RESTAURANTE";
+    private $dbname = "restaurante";
     private $user = "postgres"; // <-- REEMPLAZA "postgres" POR TU USUARIO REAL DE PGADMIN SI ES DISTINTO
     private $password = "admin"; // <-- REEMPLAZA "postgres" POR TU CONTRASEÑA REAL DE PGADMIN SI ES DISTINTA
 
