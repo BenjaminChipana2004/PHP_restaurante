@@ -8,7 +8,7 @@
             $conexion = $this->conectarBD();
             $respuesta = pg_query($conexion, $consulta);
             if (!$respuesta) {
-            die("Error SQL: " . pg_last_error($conexion));
+                die("Error SQL: " . pg_last_error($conexion));
             }
             $numfilas = pg_num_rows($respuesta);
             $this -> desconectarBD($conexion);
@@ -39,11 +39,12 @@
         }
 
         // =========================================================================
-        // MÉTODOS AÑADIDOS: AGREGAR USUARIO CON SINTAXIS POSTGRESQL (LÍNEAS NUEVAS)
+        // MÉTODOS MODIFICADOS: ALINEADOS A LAS COLUMNAS REALES DE TU BD
         // =========================================================================
         public function consultaDNI($dni)
         {
-            $consulta = "SELECT dni FROM DB_Usuario WHERE dni = '$dni'";
+            // Tu tabla usa 'codUsuario' para almacenar el identificador numérico/DNI
+            $consulta = "SELECT codUsuario FROM DB_Usuario WHERE codUsuario = '$dni'";
             $conexion = $this->conectarBD();
             $respuesta = pg_query($conexion, $consulta);
             if (!$respuesta) {
@@ -56,8 +57,13 @@
 
         public function crearNuevoUsuario($nombre, $apellido, $dni, $fecha_nacimiento, $correo, $contrasena, $rol)
         {
-            $consulta = "INSERT INTO DB_Usuario (nombre, apellido, dni, fecha_nacimiento, email, password, rol) 
-                         VALUES ('$nombre', '$apellido', '$dni', '$fecha_nacimiento', '$correo', '$contrasena', '$rol')";
+            // Fusionamos nombre y apellido en la columna única 'nombre' de tu BD
+            $nombreCompleto = $nombre . " " . $apellido;
+            
+            // Pasamos los datos respetando tus columnas: codUsuario y DB_Rol_ID
+            $consulta = "INSERT INTO DB_Usuario (codUsuario, nombre, email, password, activo, DB_Rol_ID) 
+                         VALUES ('$dni', '$nombreCompleto', '$correo', '$contrasena', TRUE, '$rol')";
+            
             $conexion = $this->conectarBD();
             $resultado = pg_query($conexion, $consulta);
             $this->desconectarBD($conexion);
