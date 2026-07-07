@@ -37,6 +37,8 @@
                     }
                     else
                     {
+                        $idUsuario = $objUsuario -> obtenerIdUsuario($correo);
+                        $_SESSION['idUsuario'] = $idUsuario;
                         $_SESSION['nombre'] = $nombreUsuario;
                         $_SESSION['listaPrivilegios'] = $listaPrivilegios;
                         include_once("../shared/formPanelControl.php");

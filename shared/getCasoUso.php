@@ -36,12 +36,15 @@
                     $objControl = new controllerActualizarPlatos();
                     $objControl -> actualizarPlatos();
                 break;
-                case 'registrar pedido':
-                    include_once('../moduloVentas/controllerRegistrarPedido.php');
-                    $objControl = new controllerRegistrarPedido();
-                    $objControl -> registrarPedido();
-                break;
                 */
+                case 'registrar pedido':
+                    include_once('../moduloPedidos/controllerRegistrarPedido.php');
+                    $objControl = new controllerRegistrarPedido();
+                    $mesasDisponibles=$objControl -> obtenerMesasDisponibles();
+                    include_once('../moduloPedidos/formRegistrarPedido.php');
+                    $objForm = new formRegistrarPedido();
+                    $objForm -> formMesasDisponiblesShow($mesasDisponibles);
+                break;
                 case 'registrar despacho':
                     include_once('../moduloVentas/controllerRegistrarDespacho.php');
                     $objControl = new controllerRegistrarDespacho();

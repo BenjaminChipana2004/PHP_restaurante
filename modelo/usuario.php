@@ -27,5 +27,15 @@
             $this -> desconectarBD($conexion);
             return ($numfilas == 1) ? pg_fetch_result($respuesta, 0, 'nombre') : false;
         }
+
+        public function obtenerIdUsuario($correo)
+        {
+            $consulta = "SELECT db_usuario_id as id FROM DB_Usuario WHERE email = '$correo'";
+            $conexion = $this->conectarBD();
+            $respuesta = pg_query($conexion, $consulta);
+            $idUsuario = pg_fetch_result($respuesta, 0, 'id');
+            $this -> desconectarBD($conexion);
+            return $idUsuario;
+        }
     }
 ?>

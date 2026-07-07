@@ -40,7 +40,7 @@ class Plato extends Conexion
     function entregarPlato($idPlato)
     {
         $conexion = $this->conectarBD();
-        $consulta = "UPDATE db_platopedido SET estado = 'entregado' WHERE codplatopedido = $idPlato;";
+        $consulta = "UPDATE db_platopedido SET estado = 'listo' WHERE codplatopedido = $idPlato;";
         pg_query($conexion, $consulta);
         $this->desconectarBD($conexion);
     }

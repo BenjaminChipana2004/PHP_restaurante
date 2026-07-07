@@ -12,16 +12,17 @@
         return in_array($privilegioNecesario,$listaPrivilegios);
     }
     
-    $boton = $_POST['btnPlato'];
-    $idPlato = $_POST['idPlato'];
+    $boton = $_POST['boton'];
+    $idMesa = $_POST['idmesa'];
+    $nroMesa = $_POST['nromesa'];
     $listaPrivilegios = $_SESSION['listaPrivilegios'];
-    $privilegioNecesario = "registrar despacho";
+    $privilegioNecesario = "registrar pedido";
     
     if(!validarBoton($boton))
     {
         include_once('../shared/mensajeSistemaBox.php');
         $objMensaje = new mensajeSistemaBox();  
-        $objMensaje -> mensajeSistemaBoxShow("ERROR: Acceso no valido","<a href='../index.php'>ingresar correctamente</a>");
+        $objMensaje -> mensajeSistemaBoxShow("ERROR: Acceso no valido","<a href='../moduloPedidos/indexPedido.php'>ingresar correctamente</a>");
     }
     else
     {
@@ -33,24 +34,18 @@
         }
         else
         {
-            include_once('./controllerRegistrarDespacho.php');
-            $objControl = new controllerRegistrarDespacho();
             switch($boton)
             {
-                case 'cancelar':
-                    $objControl -> cancelarPlato($idPlato);
+                case 'volver':
+                    include_once('../shared/formPanelControl.php');
+                    $objForm = new formPanelControl();
+                    $objForm -> formPanelControlShow($listaPrivilegios);
                 break;
-                case 'enCocina':
-                    $objControl -> enviarPlatoCocina($idPlato);
-                break;
-                case 'entregado':
-                    $objControl -> entregarPlato($idPlato);
+                case 'mesa':
+                    include_once('../moduloPedidos/controllerRegistrarPedido.php');
+                    $objControl = new controllerRegistrarPedido();
+                    $platosPedido = $objControl -> obtenerPlatosEnMesa($idMesa);
                 break;
             }
-            $platosCocina = $objControl -> obtenerPlatosCocina();
-            include_once('../moduloVentas/formRegistrarDespacho.php');
-            $objForm = new formRegistrarDespacho();
-            $objForm -> formRegistrarDespachoShow($platosCocina);
-            exit;
         }
     }
