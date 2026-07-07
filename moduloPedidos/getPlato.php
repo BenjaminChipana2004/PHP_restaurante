@@ -11,18 +11,15 @@
     {
         return in_array($privilegioNecesario,$listaPrivilegios);
     }
-    function crearCookie($nombre, $valor)
+    function borrarCookie($nombre)
     {
-        setcookie($nombre, $valor, time() + 3600, "/");
+        setcookie($nombre, "", time() - 3600, "/");
     }
     
     $boton = $_POST['boton'];
-    $idMesa = $_POST['idmesa'];
-    $nroMesa = $_POST['nromesa'];
-    $idUsuario = $_SESSION['idUsuario'];
-    $listaPrivilegios = $_SESSION['listaPrivilegios'];
     $privilegioNecesario = "registrar pedido";
-    
+    $listaPrivilegios = $_SESSION['listaPrivilegios'];
+
     if(!validarBoton($boton))
     {
         include_once('../shared/mensajeSistemaBox.php');
@@ -39,25 +36,27 @@
         }
         else
         {
+            include_once('../moduloPedidos/controllerRegistrarPedido.php');    
+            $objControl = new controllerRegistrarPedido();
             switch($boton)
             {
                 case 'volver':
-                    include_once('../shared/formPanelControl.php');
-                    $objForm = new formPanelControl();
-                    $objForm -> formPanelControlShow($listaPrivilegios);
-                break;
-                case 'mesa':
-                    include_once('../moduloPedidos/controllerRegistrarPedido.php');
-                    $objControl = new controllerRegistrarPedido();
-                    $idPedido = $objControl -> obtenerPedidoDeMesa($idMesa, $idUsuario);
-                    $platosPedido = $objControl -> obtenerPlatosEnPedido($idPedido);
-                    
-                    crearCookie("idPedido", $idPedido);
-                    crearCookie("nroMesa", $nroMesa);
-                    
+                    borrarCookie("idCategoria");
+                    $categorias = $objControl -> obtenerCategorias();
                     include_once('../moduloPedidos/formRegistrarPedido.php');
                     $objForm = new formRegistrarPedido();
-                    $objForm -> formListaPedidosShow($nroMesa, $platosPedido);
+                    $objForm -> formCategoriasPlatosShow($categorias);
+                break;
+                case 'agregar':
+                    $idPlato = $_POST['idPlato'];
+                    $idPedido = $_COOKIE['idPedido'];
+                    $objControl -> agregarPlatoAPedido($idPlato, $idPedido);
+
+                    $idCategoria = $_COOKIE['idCategoria'];
+                    $platosCategoria = $objControl -> obtenerPlatosEnCategoria($idCategoria);
+                    include_once('../moduloPedidos/formRegistrarPedido.php');
+                    $objForm = new formRegistrarPedido();
+                    $objForm -> formPlatosDisponiblesShow($platosCategoria);
                 break;
             }
         }

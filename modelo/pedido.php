@@ -5,7 +5,7 @@
         public function obtenerPedidoVigenteDeMesa($idMesa)
         {
             $consulta =    "SELECT db_pedido_id as idpedido FROM db_pedido
-                            WHERE estado = 'pendiente' AND db_mesa_id = '$idMesa';";    
+                            WHERE estado = 'pendiente' AND db_mesa_id = $idMesa;";    
             $conexion = $this->conectarBD();
             $resultado = pg_query($conexion, $consulta);
             $this->desconectarBD($conexion);
@@ -18,14 +18,13 @@
         }
         public function crearPedidoDeMesa($idMesa, $idUsuario)
         {
-            $consultaInsertarPedido =      "INSERT INTO db_pedido (codpedido, fecha, total, estado, observacion, db_mesa_id, db_usuario_id)
-                                            VALUES (9999, CURRENT_DATE, 0, 'pendiente', '', $idMesa, $idUsuario);";
-            $consultaObtenerIdPedido =     "SELECT db_pedido_id FROM db_pedido WHERE codpedido = 9999;";
-            $consultaActualizarCodigo =    "UPDATE db_pedido SET codpedido = db_pedido_id + 5000 WHERE codpedido = 9999;";
+            $consultaCodigo =              "INSERT INTO db_pedido (codpedido, fecha, total, estado, observacion, db_mesa_id, db_usuario_id)
+                                            VALUES (1111, CURRENT_DATE, 0, 'pendiente', '', $idMesa, $idUsuario);
+                                            SELECT db_pedido_id FROM db_pedido WHERE codpedido = 1111;";
+            $consultaActualizarCodigo =    "UPDATE db_pedido SET codpedido = db_pedido_id + 5000 WHERE codpedido = 1111;";
             
             $conexion = $this->conectarBD();
-            pg_query($conexion, $consultaInsertarPedido);
-            $resultado = pg_query($conexion, $consultaObtenerIdPedido);
+            $resultado = pg_query($conexion, $consultaCodigo);
             pg_query($conexion, $consultaActualizarCodigo);
             $this->desconectarBD($conexion);
             
@@ -42,7 +41,7 @@
             $sql = "SELECT p.DB_Pedido_ID AS db_pedido_id, p.codPedido, p.total 
                     FROM DB_Pedido p
                     INNER JOIN DB_Mesa m ON p.DB_Mesa_ID = m.DB_Mesa_ID
-                    WHERE m.numero = $1 AND p.estado = 'entregado' 
+                    WHERE m.numero = $1 AND p.estado = 'pendiente' 
                     LIMIT 1;";
 
             // Ejecutamos la consulta pasando el parámetro exacto NroMesa

@@ -29,13 +29,11 @@ INSERT INTO DB_Rol (codRol, nombre, activo) VALUES
 
 INSERT INTO DB_Permiso (codPermiso, nombre) VALUES
 ('PERM-001', 'actualizar platos'),
-('PERM-002', 'generar reporte de ventas'),
-('PERM-003', 'registrar pedido'),
-('PERM-004', 'registrar despacho'),
-('PERM-005', 'efectuar cobro'),
-('PERM-006', 'registrar reclamo'),
-('PERM-007', 'registrar insumos'),
-('PERM-008', 'actualizar usuarios');
+('PERM-002', 'registrar pedido'),
+('PERM-003', 'registrar despacho'),
+('PERM-004', 'realizar cobro'),
+('PERM-005', 'registrar insumos'),
+('PERM-006', 'agregar usuario');
 
 INSERT INTO DB_Mesa (codMesa, numero, disponible) VALUES
 ('MESA-001', 1, TRUE),
@@ -61,17 +59,14 @@ INSERT INTO DB_Usuario (codUsuario, nombre, email, password, activo, DB_Rol_ID) 
 -- 4=registrar despacho, 5=efectuar cobro, 6=registrar reclamo, 7=registrar insumos, 8=actualizar usuarios
 INSERT INTO DB_PermisoUsuario (DB_Permiso_ID, DB_Usuario_ID) VALUES
 (1, 1), -- Carlos (cocinero): actualizar platos
-(7, 1), -- Carlos (cocinero): registrar insumos
-(3, 2), -- Maria (mesero): registrar pedido
-(6, 2), -- Maria (mesero): registrar reclamo
-(5, 3), -- Jorge (cajero): efectuar cobro
-(2, 3), -- Jorge (cajero): generar reporte de ventas
-(8, 4), -- Lucia (administrador): actualizar usuarios
-(2, 4), -- Lucia (administrador): generar reporte de ventas
-(4, 5), -- Pedro (cocinero): registrar despacho
-(7, 5), -- Pedro (cocinero): registrar insumos
-(4, 6), -- Andrea (mesero): registrar despacho
-(3, 6); -- Andrea (mesero): registrar pedido
+(5, 1), -- Carlos (cocinero): registrar insumos
+(2, 2), -- Maria (mesero): registrar pedido
+(4, 3), -- Jorge (cajero): efectuar cobro
+(6, 4), -- Lucia (administrador): actualizar usuarios
+(3, 5), -- Pedro (cocinero): registrar despacho
+(5, 5), -- Pedro (cocinero): registrar insumos
+(3, 6), -- Andrea (mesero): registrar despacho
+(2, 6); -- Andrea (mesero): registrar pedido
 
 -- =====================================================
 -- INVENTARIO

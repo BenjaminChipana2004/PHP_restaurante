@@ -8,25 +8,68 @@
             $mesasDisponibles = $objMesa -> obtenerMesasDisponibles();
             return $mesasDisponibles;
         }
-        public function obtenerPlatosEnMesa($idMesa)
+        public function obtenerPedidoDeMesa($idMesa, $idUsuario)
         {
             include_once('../modelo/pedido.php');
             $objPedido = new pedido();
             $idPedido = $objPedido -> obtenerPedidoVigenteDeMesa($idMesa);
             if ($idPedido == null) {
-                if(session_status() === PHP_SESSION_NONE)
-                {
-                    session_start();
-                }
-                $idUsuario = $_SESSION['idUsuario'];
                 $idPedido = $objPedido -> crearPedidoDeMesa($idMesa, $idUsuario);
             }
-            // Me quedé hasta acá, la verdad es que no he dormido nada, necesito una siesta para acabar.
-            // Cabe aclarar que dormí por las 4:30 am a pesar intentarlo a las 3:30.
-            // igual me levantaré temprano para avanzar, apoyarlos y unir los diseños
-            // si leen esto, tengan fe, si se puede
-            // solo tengo el esqueleto de la aplicación, pero la IA lo estilizará
-            // además, la idea es que funcione tal como marcamos en el diseño, no tanto que se vea bonito
+            return $idPedido;
+        }
+        public function obtenerPlatosEnPedido($idPedido)
+        {
+            include_once('../modelo/platoPedido.php');
+            $objPlatoPedido = new platoPedido();
+            $platosPedido = $objPlatoPedido -> obtenerPlatosEnPedido($idPedido);
             return $platosPedido;
+        }
+        public function cancelarPlatoEnPedido($idPlatoPedido)
+        {
+            include_once('../modelo/platoPedido.php');
+            $objPlatoPedido = new platoPedido();
+            $respuesta = $objPlatoPedido -> cancelarPlatoEnPedido($idPlatoPedido);
+            if (!($respuesta)) {
+                include_once('../shared/mensajeSistemaBox.php');
+                $objMensaje = new mensajeSistemaBox();
+                $objMensaje -> mensajeSistemaBoxShow("ERROR: No se pudo cancelar el plato","<a href='../moduloPedidos/indexPedido.php'>volver</a>");
+            }
+        }
+        public function entregarPlatoPedido($idPedido)
+        {
+            include_once('../modelo/platoPedido.php');
+            $objPlatoPedido = new platoPedido();
+            $respuesta = $objPlatoPedido -> entregarPlatoPedido($idPedido);
+            if (!($respuesta)) {
+                include_once('../shared/mensajeSistemaBox.php');
+                $objMensaje = new mensajeSistemaBox();
+                $objMensaje -> mensajeSistemaBoxShow("ERROR: No se pudo entregar el plato","<a href='../moduloPedidos/indexPedido.php'>volver</a>");
+            }
+        }
+        public function obtenerCategorias()
+        {
+            include_once('../modelo/categoria.php');
+            $objCategoria = new categoria();
+            $categorias = $objCategoria -> obtenerCategorias();
+            return $categorias;
+        }
+        public function obtenerPlatosEnCategoria($idCategoria)
+        {
+            include_once('../modelo/plato.php');
+            $objPlato = new plato();
+            $platosCategoria = $objPlato -> obtenerPlatosEnCategoria($idCategoria);
+            return $platosCategoria;
+        }
+        public function agregarPlatoAPedido($idPlato, $idPedido)
+        {
+            include_once('../modelo/platoPedido.php');
+            $objPlatoPedido = new platoPedido();
+            $respuesta = $objPlatoPedido -> agregarPlatoAPedido($idPlato, $idPedido);
+            if (!($respuesta)) {
+                include_once('../shared/mensajeSistemaBox.php');
+                $objMensaje = new mensajeSistemaBox();
+                $objMensaje -> mensajeSistemaBoxShow("ERROR: No se pudo agregar el plato al pedido","<a href='../moduloPedidos/indexPedido.php'>volver</a>");
+            }
         }
     }

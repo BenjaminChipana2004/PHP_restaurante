@@ -1,7 +1,7 @@
 <?php
 include_once('conexion.php');
 
-class Plato extends Conexion
+class plato extends conexion
 {
     function obtenerPlatosCocina()
     {
@@ -43,5 +43,19 @@ class Plato extends Conexion
         $consulta = "UPDATE db_platopedido SET estado = 'listo' WHERE codplatopedido = $idPlato;";
         pg_query($conexion, $consulta);
         $this->desconectarBD($conexion);
+    }
+    function obtenerPlatosEnCategoria($idCategoria)
+    {
+        $consulta =    "SELECT db_plato_id AS idplato, nombre, precio, imagenurl FROM db_plato
+                        WHERE disponible = true AND db_categoria_id = $idCategoria;";
+        $conexion = $this->conectarBD();
+        $respuesta = pg_query($conexion, $consulta);
+        $this->desconectarBD($conexion);
+        $platosCategoria = [];
+        while($fila = pg_fetch_assoc($respuesta))
+        {
+            $platosCategoria[] = $fila;
+        }
+        return $platosCategoria;
     }
 }

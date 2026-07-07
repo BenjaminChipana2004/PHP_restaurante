@@ -1,7 +1,7 @@
 <?php
 require_once 'conexion.php';
 
-class Factura extends Conexion
+class Factura extends conexion
 {
     /**
      * Registra la factura en el sistema y actualiza el estado del pedido a 'pagado'.
