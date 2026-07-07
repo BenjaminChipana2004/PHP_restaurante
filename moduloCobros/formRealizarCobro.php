@@ -19,7 +19,18 @@ class formRealizarCobro extends pantalla
                 <form method="POST" action="../moduloCobros/getCobro.php" class="form-acciones-cobro">
                     <div class="grupo-control">
                         <label for="txtMesa">Número de Mesa </label>
-                        <input type="number" id="txtMesa" name="txtMesa" class="input-texto" placeholder="Ej. 1" required>
+                        
+                        <input type="number" 
+                               id="txtMesa" 
+                               name="txtMesa" 
+                               class="input-texto" 
+                               placeholder="Ej. 1" 
+                               min="1" 
+                               max="10" 
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                               oninput="if(this.value !== '' && this.value < 1) this.value = ''; if(this.value > 10) this.value = 10;"
+                               required>
+                        
                         <label for="txtFecha">Fecha Actual: </label>
                         <input type="text" id="txtFecha" name="txtFecha" value="<?php echo date('d-m-Y'); ?>" readonly style="padding: 5px; background-color: #e9ecef; border: 1px solid #ced4da; color: #495057; cursor: not-allowed; width: 120px;">
                     </div>
