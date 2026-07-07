@@ -32,7 +32,7 @@ INSERT INTO DB_Permiso (codPermiso, nombre) VALUES
 ('PERM-002', 'generar reporte de ventas'),
 ('PERM-003', 'registrar pedido'),
 ('PERM-004', 'registrar despacho'),
-('PERM-005', 'efectuar cobro'),
+('PERM-005', 'realizar cobro'),
 ('PERM-006', 'registrar reclamo'),
 ('PERM-007', 'registrar insumos'),
 ('PERM-008', 'actualizar usuarios');
@@ -65,9 +65,7 @@ INSERT INTO DB_PermisoUsuario (DB_Permiso_ID, DB_Usuario_ID) VALUES
 (3, 2), -- Maria (mesero): registrar pedido
 (6, 2), -- Maria (mesero): registrar reclamo
 (5, 3), -- Jorge (cajero): efectuar cobro
-(2, 3), -- Jorge (cajero): generar reporte de ventas
 (8, 4), -- Lucia (administrador): actualizar usuarios
-(2, 4), -- Lucia (administrador): generar reporte de ventas
 (4, 5), -- Pedro (cocinero): registrar despacho
 (7, 5), -- Pedro (cocinero): registrar insumos
 (4, 6), -- Andrea (mesero): registrar despacho
