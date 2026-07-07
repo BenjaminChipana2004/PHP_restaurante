@@ -25,7 +25,6 @@
             $objMensaje = new mensajeSistemaBox();
 
             if ($resultado) {
-                // El mensaje exacto que pediste
                 $objMensaje->mensajeSistemaBoxShow("Se Agrego con exito", "<a href='../index.php'>Volver al Panel</a>");
             } else {
                 $objMensaje->mensajeSistemaBoxShow("ERROR: Ocurrió un problema en la Base de Datos", "<a href='javascript:history.back()'>Intentar de nuevo</a>");
