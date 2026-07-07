@@ -27,7 +27,7 @@
         $dni = trim($_POST['txtDNI']);
         $fecha = trim($_POST['txtFechaNacimiento']);
         $correo = trim($_POST['txtCorreo']);
-        $contrasena = trim($_POST['txtContrasena']); // Puedes aplicarle md5() aquí si tu sistema lo requiere
+        $contrasena = trim($_POST['txtContrasena']); 
         $rol = $_POST['cboRol'];
 
         if (!validarCasillas($nombre, $apellido, $dni, $fecha, $correo, $contrasena, $rol)) {
@@ -40,17 +40,17 @@
                 $objMensaje = new mensajeSistemaBox();
                 $objMensaje->mensajeSistemaBoxShow("ERROR: El DNI debe contener exactamente 8 números", "<a href='javascript:history.back()'>Vuelva a intentar</a>");
             } else {
-                // Pasamos al controlador para la lógica de base de datos
+                // CORRECCIÓN DE CASING: Forzamos la 'c' minúscula en el nombre del archivo
                 include_once("controllerAgregarUsuario.php");
                 $objControl = new ControllerAgregarUsuario(); 
                 
-                // Primero consultamos si el DNI existe (como dice el diagrama de secuencia)
+                // Primero consultamos si el DNI existe
                 $existeDNI = $objControl->consultaDNI($dni);
 
                 if ($existeDNI > 0) {
                     include_once('../shared/mensajeSistemaBox.php');
                     $objMensaje = new mensajeSistemaBox();
-                    $objMensaje->mensajeSistemaBoxShow("ERROR: El DNI '$dni' ya se encuentra registrado", "<a href='javascript:history.back()'>Modificar DNI</a>");
+                    $objMensaje->mensajeSistemaBoxShow("ERROR: El DNI/Código '$dni' ya se encuentra registrado", "<a href='javascript:history.back()'>Modificar DNI</a>");
                 } else {
                     // Si no existe, lo creamos
                     $objControl->crearNuevoUsuario($nombre, $apellido, $dni, $fecha, $correo, $contrasena, $rol);
